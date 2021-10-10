@@ -1,0 +1,16 @@
+package lesson4;
+
+public class Ternary {
+    public static void main(String [] args){
+        int i,k;
+        i=10;
+        k=i<0?-i:i;
+        System.out.println(" ");
+        System.out.println(i+"==" +k);
+        i= -10;
+        k=i<0?-i:i;
+        System.out.print(" ");
+        System.out.println(" ");
+        System.out.println(i+"=="+k);
+    }
+}
