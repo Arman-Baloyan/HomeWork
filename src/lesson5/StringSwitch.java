@@ -1,6 +1,8 @@
 package lesson5;
 
-public class StringSwitch {
+public class
+
+StringSwitch {
 
     public static void main(String[] args) {
 
