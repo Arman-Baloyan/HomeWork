@@ -2,6 +2,6 @@ package arrayUtil1;
 
 public class LongConvert {
     long convert(int minutes){      //փոխակերպել տրված րոպեն վայրկյանի ու վերադարձնել
-        return 0;
+        return minutes*60;
     }
 }

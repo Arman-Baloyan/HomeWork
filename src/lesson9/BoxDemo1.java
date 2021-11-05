@@ -4,8 +4,8 @@ import jdk.jshell.EvalException;
 
 public class BoxDemo1 {
     public static void main(String[] args) {
-        Box mybox1=new Box();
-        Box mybox2=new Box();
+        Box mybox1=new Box(10,20,15);
+        Box mybox2=new Box(21,12,15);
         double vol1;
         mybox1.widht=10;
         mybox1.height=20;

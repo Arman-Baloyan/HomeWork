@@ -5,6 +5,6 @@ public class MaxLength {
         maxLength(array1, array2);
 
 
-        return 0;
+        return array1.length> array2.length? array1.length: array2.length;
     }
 }

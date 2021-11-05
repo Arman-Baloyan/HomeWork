@@ -4,8 +4,8 @@ public class BoxDemo {
 
     public static void main(String[] args) {
 
-        Box myBox=new Box();
-        Box myBox1=new Box();
+        Box myBox=new Box(10,20,15);
+        Box myBox1=new Box(10,5,76);
      //   System.out.println(myBox.widht);
     //    System.out.println(myBox.height);
      //   System.out.println(myBox.depth);
