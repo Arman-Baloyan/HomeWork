@@ -15,17 +15,16 @@ public class DynamicArray {
     }
 
     //Мaссив в котором будет добовляться наши элементы
-    private int size = 10;{
-    int size =10;
+    private int size = 10;
+
+    {
+        int size = 10;
 
         for (int i = 0; i < size; i++) {
-            System.out.println(size+1);
-
-
+            System.out.println(size + 1);
 
 
         }
-
 
 
     }
@@ -36,16 +35,15 @@ public class DynamicArray {
         if (size == array.length) {
             extend();
 
-        }else size++;
-        array[array.length-1]=value;
-        System.out.println(value);
-
-        int[]sum=new int[array.length+10];
-        for (int i = 0; i < array.length; i++) {
-            sum[i]=array[i];
-            sum=array;
-            
         }
+
+        int[] sum = new int[array.length + 10];
+        for (int i = 0; i < array.length; i++) {
+            sum[i] = array[i];
+
+        }
+        sum = array;
+
     }
 
     // 1.Создать из старого массива 10 элементный большой массив
@@ -68,7 +66,9 @@ public class DynamicArray {
 //В противном случае вернуть -1
 //
     public int getByIndex(int index) {
-        return index * 3 - 1;
+        if (index < 0 || index > array.length) ;
+        System.out.println("Invalid index");
+        return -1;
     }
 
     //Печатать добавленные элементы массива
@@ -79,4 +79,60 @@ public class DynamicArray {
 
 
     }
+
+    public void deleted(int index) {
+        if (index < 0 || index > size) {
+            System.out.println("Invalid index");
+        }
+
+        for (int i = index + 1; i < size; i++) {
+            array[i - 1] = array[i];
+        }
+        size--;
+    }
+
+    public void add(int value, int index) {
+        for (int i = size - 1; i <= index; i--) {
+            array[i + 1] = array[i];
+            array[index] = value;
+            size++;
+
+        }
+
+    }
+
+
+    public void set(int value, int index) {
+        if (index < 0 || index > size) {
+            System.err.println("Invalid index");
+
+        } else {
+            array[index] = value;
+        }
+    }
+
+    public void add(int[] numbers) {
+        for (int number : numbers) {
+            add(number);
+
+        }
+
+    }
+
+    public boolean isExist(int value) {
+        for (int i : array) {
+            return true;
+
+        }
+        return false;
+    }
+
+    public boolean isEmpty() {
+
+
+        return size==0;
+    }
+
 }
+
+
