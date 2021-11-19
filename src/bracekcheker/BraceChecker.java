@@ -27,18 +27,18 @@ public class BraceChecker {
 
                 case ']':
                     int extasy = stack.pop();
-                    if (extasy != ']') ;
+                    if (extasy != '[') ;
                     System.out.println("Error: opened" + extasy + "[but closed]" + i);
                     break;
 
                 case ')':
                     int extasy1 = stack.pop();
-                    if (extasy1 != ')') ;
+                    if (extasy1 != '(') ;
                     System.out.println("Error:opend" + extasy1 + "(but closed)" + i);
                     break;
                 case '}':
                     int extasy2 = stack.pop();
-                    if (extasy2 != '}') ;
+                    if (extasy2 != '{') ;
                     System.out.println("Error:opened" + extasy2 + "{but closed}" + i);
                     break;
                 //Смысл в том что берем 3 разных видов ковычки,сначало показываем потом сравниваем
