@@ -1,31 +1,67 @@
 package author;
 
 public class AuthorStorage {
+    private Author[] authors = new Author[16];
+    private int size;
 
-private Author[]array;
-private int size=0;
-AuthorStorage(){
-    array=new Author[10];
-}
-public  void Add(Author author){
-    if(array.length==size){
-        extend();
-    }
-    array[size++]=author;
-}
-private void extend(){
-    Author[]regex=new Author[array.length+(((array.length)))];
-        for (int i = 0; i < array.length; i++) {
-            regex[i]=array[i];
-
+    public void add(Author author) {
+        if (authors.length == size) {
+            extend();
         }
-        array=regex;
+        authors[size++] = author;
     }
 
-    public void println() {
+    private void extend() {
+        Author[] tmp = new Author[authors.length + 10];
+        System.arraycopy(authors, 0, tmp, 0, authors.length);
+        authors = tmp;
+    }
+
+    public void print() {
+        for (int i = 0; i < size; i++) {
+            System.out.println(authors[i]);
+        }
+    }
+
+    public void searchByName(String keyword) {
+        for (int i = 0; i < size; i++) {
+            if (authors[i].getName().contains(keyword) ||
+                    authors[i].getSurname().contains(keyword)) {
+                System.out.println(authors[i]);
+            }
+        }
+    }
+
+    public void searchByAge(int minAge, int maxAge) {
+        for (int i = 0; i < size; i++) {
+            if (authors[i].getAge() >= minAge &&
+                    authors[i].getAge() <= maxAge) {
+                System.out.println(authors[i]);
+            }
+        }
+    }
+
+    public Author getByEmail(String email) {
+        for (int i = 0; i < size; i++) {
+            if (authors[i].getEmail().equals(email)) {
+                return authors[i];
+            }
+        }
+        return null;
+    }
+
+    public void updateAuthor(String email, String name, int age, String surname, String gender){
+        if (getByEmail(email) != null){
+            Author updateAuthor = getByEmail(email);
+            updateAuthor.setName(name);
+            updateAuthor.setSurname(surname);
+            updateAuthor.setEmail(email);
+            updateAuthor.setAge(age);
+            updateAuthor.setGender(gender);
+            add(updateAuthor);
+        }
     }
 }
-
 
 
 
