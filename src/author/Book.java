@@ -2,7 +2,6 @@ package author;
 
 public class Book {
 
-
     private String title;
     private String description;
     private double price;
@@ -73,6 +72,5 @@ public class Book {
                 '}';
     }
 }
-
 
 

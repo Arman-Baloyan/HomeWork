@@ -1,7 +1,6 @@
 package author;
 import java.util.Arrays;
 import java.util.Scanner;
-
 public class AuthorBookTest {
     static Scanner scanner = new Scanner(System.in);
     static AuthorStorage authorStorage = new AuthorStorage();
@@ -19,12 +18,17 @@ public class AuthorBookTest {
     private static final String COUNT_BOOKS_BY_AUTHOR = "9";
     private static final String CHANGE_AUTHOR = "10";
     private static final String CHANGE_BOOK_AUTHOR = "11";
+    private static final String DELETE_BOOK = "12";
+    private static final String DELETE_AUTHOR = "13";
+    private static final String DELETE_BY_AUTHOR = "14";
 
     public static void main(String[] args) {
 
         authorStorage.add(new Author("poxos", "poxosyan", 22, "poxos@mail.com", "male"));
         authorStorage.add(new Author("poxosuhi", "poxosyan", 23, "poxosuhi@mail.com", "female"));
         authorStorage.add(new Author("petros", "petrosyan", 25, "petros@mail.com", "male"));
+
+
 
         boolean isRun = true;
         while (isRun) {
@@ -66,6 +70,15 @@ public class AuthorBookTest {
                     break;
                 case CHANGE_BOOK_AUTHOR:
                     updateBookAuthor();
+                    break;
+                case DELETE_BOOK:
+                    deleteBook();
+                    break;
+                case DELETE_AUTHOR:
+                    deleteAuthor();
+                    break;
+                case DELETE_BY_AUTHOR:
+                    deleteAuthorAllBooks();
                     break;
                 default:
                     System.out.println("Invalid command!");
@@ -134,6 +147,9 @@ public class AuthorBookTest {
         System.out.println("please input " + COUNT_BOOKS_BY_AUTHOR + " for count books by author");
         System.out.println("please input " + CHANGE_AUTHOR + " for changing author");
         System.out.println("please input " + CHANGE_BOOK_AUTHOR + " for changing book author");
+        System.out.println("please input " + DELETE_BOOK + " for delete book by title");
+        System.out.println("please input " + DELETE_AUTHOR + " for delete author");
+        System.out.println("please input " + DELETE_BY_AUTHOR + " for delete book by author");
     }
 
     private static void searchByName() {
@@ -230,8 +246,36 @@ public class AuthorBookTest {
         System.out.println(searchedBook);
     }
 
+    private static void deleteBook(){
+        System.out.println("please input book title to delete a book");
+        String title = scanner.nextLine();
+        bookStorage.deleteBook(title);
+    }
+
+    private static void deleteAuthorAllBooks(){
+        System.out.println("please input author email");
+        String email = scanner.nextLine();
+        Author byEmail = authorStorage.getByEmail(email);
+        if (byEmail == null){
+            System.out.println("No author was found!");
+            deleteAuthorAllBooks();
+        }
+        bookStorage.deleteBookByAuthor(byEmail);
+        System.out.println("Author books were deleted!");
+    }
+
+    private static void deleteAuthor(){
+        System.out.println("please input email to delete author");
+        String email = scanner.nextLine();
+        if (authorStorage.getByEmail(email) == null){
+            System.out.println("No author was found!");
+            deleteAuthor();
+        }
+        authorStorage.deleteAuthor(email);
+        System.out.println("Author was deleted!");
+    }
+
 
 }
-
 
 
