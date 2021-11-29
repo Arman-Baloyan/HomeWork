@@ -1,7 +1,7 @@
 package author;
 
 public class Book {
-
+    private String serialId;
     private String title;
     private String description;
     private double price;
