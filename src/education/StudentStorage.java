@@ -1,9 +1,6 @@
 package education;
 
 
-
-
-
 public class StudentStorage {
 
     private Student[] students = new Student[15];
@@ -13,6 +10,7 @@ public class StudentStorage {
         if (size == students.length) {
             extend();
         }
+        students[size++] = student;
     }
 
     private void extend() {
@@ -30,21 +28,25 @@ public class StudentStorage {
         }
     }
 
-
     public void printStudentsByLesson(String lessonName) {
         for (int i = 0; i < students.length; i++) {
-            if (students[i].getLesson().getName().equals(lessonName)) {
-                System.out.println(students[i]);
+            Lesson[] lesson = students[i].getLesson();
+            for (int j = 0; j < lesson.length; j++) {
+                if(lesson[i].getName().equals(lessonName)){
+                    System.out.println(students[i]);
+                }
             }
-
         }
-
-
     }
 
-
-
-
+    public Student getByEmail(String email){
+        for (int i = 0; i < students.length; i++) {
+            if(students[i].getEmail().equals(email)){
+                    return students[i];
+            }
+        }
+        return null;
+    }
 
 
     public void deleteByEmail(String email) {
@@ -56,9 +58,9 @@ public class StudentStorage {
                 students[i + 1] = students[i];
                 students[i] = tempStudent;
                 tempLength--;
-
-
             }
         }
     }
+
+
 }

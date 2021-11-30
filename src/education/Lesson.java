@@ -1,5 +1,5 @@
 package education;
-import java.util.Objects;
+
 public class Lesson {
 
     private String name;

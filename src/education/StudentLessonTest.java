@@ -15,6 +15,7 @@ public class StudentLessonTest {
     private static final String PRINT_LESSONS = "5";
     private static final String DELETE_LESSONS_BY_NAME = "6";
     private static final String DELETE_STUDENT_BY_EMAIL = "7";
+    private static final String ADD_LESSON_TO_STUDENT = "8";//мой добавленный приказ
 
 
     public static void main(String[] args) {
@@ -52,8 +53,13 @@ public class StudentLessonTest {
                 case DELETE_STUDENT_BY_EMAIL:
                     deleteStudentByEmail();
                     break;
+                case ADD_LESSON_TO_STUDENT:
+                    addLessonToStudent();
+                    break;
                 default:
                     System.out.println("Invalid command!");
+
+
             }
         }
     }
@@ -84,13 +90,14 @@ public class StudentLessonTest {
 
     private static void printCommands() {
         System.out.println("please input " + EXIT + " for EXIT");
-        System.out.println("please input"+ADD_LESSON+"for ADD_LESSON");
-        System.out.println("please input"+ADD_STUDENT+"for ADD_STUDENT");
-        System.out.println("please input"+PRINT_STUDENTS+"for PRINT_STUDENTS");
-        System.out.println("please input"+PRINT_STUDENTS_BY_LESSON+"for PRINT_STUDENTS_BY_LESSON");
-        System.out.println("please input"+PRINT_LESSONS+"for PRINT_LESSONS");
-        System.out.println("please inpt"+DELETE_LESSONS_BY_NAME+"for DELETE_LESSONS_BY_NAME");
-        System.out.println("please input"+DELETE_STUDENT_BY_EMAIL+"for DELETE_STUDENT_BY_EMAIL");
+        System.out.println("please input "+ADD_LESSON+"for ADD_LESSON");
+        System.out.println("please input "+ADD_STUDENT+"for ADD_STUDENT");
+        System.out.println("please input "+PRINT_STUDENTS+"for PRINT_STUDENTS");
+        System.out.println("please input "+PRINT_STUDENTS_BY_LESSON+"for PRINT_STUDENTS_BY_LESSON");
+        System.out.println("please input "+PRINT_LESSONS+"for PRINT_LESSONS");
+        System.out.println("please input "+DELETE_LESSONS_BY_NAME+"for DELETE_LESSONS_BY_NAME");
+        System.out.println("please input "+DELETE_STUDENT_BY_EMAIL+"for DELETE_STUDENT_BY_EMAIL");
+        System.out.println("please input "+ ADD_LESSON_TO_STUDENT + "for add lesson to student");
     }
     private static void addLesson() {
         System.out.println("please input lesson name");
@@ -116,10 +123,63 @@ public class StudentLessonTest {
         String email=scanner.nextLine();
         System.out.println("please input student phone");
         String phone=scanner.nextLine();
-
-        Student student=new Student(name,surname,age,email,phone);
-        studentStorage.add(student);
+        System.out.println("please input lesson name");
+        String lessonName = scanner.nextLine();
+        if (lessonName.length()==0){
+            Student student = new Student(name, surname, age, email, phone);
+            studentStorage.add(student);
+            System.out.println("student added!");
+        }
+        if (lessonName.length()!=0 && lessonstorage.getLessonByName(lessonName) != null) {
+            Lesson lessonByName = lessonstorage.getLessonByName(lessonName);
+            Lesson[] lessons = new Lesson[5];
+            for (int i = 0; i < lessons.length; i++) {
+                if (lessons[i] == null) {
+                    lessons[i] = lessonByName;
+                }
+            }
+            Student student = new Student(name, surname, age, email, phone, lessons);
+            studentStorage.add(student);
+            printCommands();
+        }
     }
+
+    private static void addLessonToStudent() {
+        System.out.println("please input student email");
+        String email = scanner.nextLine();
+        System.out.println("please input lesson name");
+        String lessonName = scanner.nextLine();
+        Student studentByEmail = studentStorage.getByEmail(email);
+        Lesson lessonByName = lessonstorage.getLessonByName(lessonName);
+            if(studentByEmail != null && lessonByName!=null){
+                Student byEmail = studentStorage.getByEmail(email);
+                Lesson[] lessons = byEmail.getLesson();
+                if(lessons == null){
+                    Lesson [] studentLessons = new Lesson[5];
+                    for (int i = 0; i < studentLessons.length; i++) {
+                        Lesson getLessonByName = lessonstorage.getLessonByName(lessonName);
+                        studentLessons[i] = getLessonByName;
+                        break;
+                    }
+                    byEmail.setLesson(studentLessons);
+                    System.out.println("successfully added!");
+                    return;
+                }
+                if (lessons != null){
+                    for (int i = 0; i < lessons.length; i++) {
+                        if(lessons[i] == null){
+                            Lesson getLessonByName = lessonstorage.getLessonByName(lessonName);
+                            lessons[i]=getLessonByName;
+                            byEmail.setLesson(lessons);
+                            System.out.println("successfully added!");
+                           return;
+                        }
+                    }
+                }
+            }
+            else System.out.println("No lesson or student was found!");
+        }
+
     public static void  printStudents (){
         System.out.println("here is the list of students");
         studentStorage.print();

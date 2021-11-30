@@ -1,7 +1,5 @@
 package education;
 
-import author.Book;
-
 public class LessonStorage {
 
     private Lesson[] lessons = new Lesson[16];
@@ -30,7 +28,6 @@ public class LessonStorage {
         }
     }
 
-
     public void deleteLessonsByName(String lessonName) {
         Lesson tempLesson = new Lesson();
         int tempLength = lessons.length;
@@ -40,13 +37,20 @@ public class LessonStorage {
                 lessons[i + 1] = lessons[i];
                 lessons[i] = tempLesson;
                 tempLength--;
-
-
             }
-
-
         }
-
-
     }
+
+    public Lesson getLessonByName(String lessonName){
+        for (int i = 0; i < size; i++) {
+            if(lessons[i].getName().equals(lessonName)){
+                return lessons[i];
+            }
+        }
+        return null;
+    }
+
+
+
+
 }
