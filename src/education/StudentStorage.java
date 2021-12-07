@@ -19,7 +19,7 @@ public class StudentStorage {
         students = tmp;
     }
 
-        public void print (){
+    public void print (){
         for (int i = 0; i < size; i++) {
             if (students[i] != null) {
                 System.out.println(students[i]);
@@ -30,7 +30,7 @@ public class StudentStorage {
 
     public void printStudentsByLesson(String lessonName) {
         for (int i = 0; i < students.length; i++) {
-            Lesson[] lesson = students[i].getLesson();
+            Lesson[] lesson = students[i].getLessons();
             for (int j = 0; j < lesson.length; j++) {
                 if(lesson[i].getName().equals(lessonName)){
                     System.out.println(students[i]);
@@ -42,7 +42,7 @@ public class StudentStorage {
     public Student getByEmail(String email){
         for (int i = 0; i < students.length; i++) {
             if(students[i].getEmail().equals(email)){
-                    return students[i];
+                return students[i];
             }
         }
         return null;
@@ -61,6 +61,7 @@ public class StudentStorage {
             }
         }
     }
+
 
 
 }

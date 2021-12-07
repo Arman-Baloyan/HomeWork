@@ -1,4 +1,7 @@
-package author;
+package author.storage;
+
+import author.util.ArrayUtil;
+import author.model.Author;
 
 public class AuthorStorage {
 
@@ -20,9 +23,7 @@ public class AuthorStorage {
 
     public void print() {
         for (int i = 0; i < size; i++) {
-            if (authors[i] != null) {
-                System.out.println(authors[i]);
-            }
+            System.out.println(authors[i]);
         }
     }
 
@@ -53,30 +54,14 @@ public class AuthorStorage {
         return null;
     }
 
-    public void updateAuthor(String email, String name, int age, String surname, String gender) {
-        if (getByEmail(email) != null) {
-            Author updateAuthor = getByEmail(email);
-            updateAuthor.setName(name);
-            updateAuthor.setSurname(surname);
-            updateAuthor.setEmail(email);
-            updateAuthor.setAge(age);
-            updateAuthor.setGender(gender);
 
-        }
-    }
-
-    public void deleteAuthor(String email) {
-        Author tempAuthor = new Author();
-        int tempLength = authors.length;
-        for (int i = 0; i < tempLength; i++) {
-            if (authors[i].getEmail().equals(email)) {
-                tempAuthor = authors[i + 1];
-                authors[i + 1] = authors[i];
-                authors[i] = tempAuthor;
-                tempLength--;
+    public void delete(Author author) {
+        for (int i = 0; i < size; i++) {
+            if (authors[i].equals(author)) {
+                ArrayUtil.deleteByIndex(authors, i, size);
+                size--;
+                break;
             }
         }
     }
 }
-
-
