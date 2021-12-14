@@ -9,6 +9,7 @@ public class StudentLessonTest {
     static UserStorage userStorage = new UserStorage();
     static UserContext context = new UserContext();
 
+
     private static final String EXIT = "0";
     private static final String LOGIN = "1";
     private static final String REGISTER = "2";
@@ -90,12 +91,11 @@ public class StudentLessonTest {
         String login = scanner.nextLine();
         System.out.println("Password:");
         String password = scanner.nextLine();
-        if(userStorage.getUserByEmail(login) == null){
-            System.out.println("User not found! Wrong login or password");
-            return;
-        }
-        if (userStorage.getUserByEmail(login) != null) {
+        try{
             User userByEmail = userStorage.getUserByEmail(login);
+            if(userStorage.getUserByEmail(login)==null){
+                throw  new UserNotFoundException();
+            }
             if (userByEmail.getPassword().equals(password) && userByEmail.getType().equals("admin")) {
                 addUserToContext(userByEmail);
                 printAdminCommands();
@@ -104,7 +104,13 @@ public class StudentLessonTest {
                 addUserToContext(userByEmail);
                 printUserCommands();
             }
+        }catch(UserNotFoundException e){
+            System.out.println(e.getMessage());
+
+
+            return;
         }
+
     }
 
     private static void deleteStudentByEmail() {

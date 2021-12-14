@@ -8,10 +8,9 @@ public class UserStorage {
         if (users.length == size) {
             extend();
         }
-        if (!user.equals(getUserByEmail(user.getEmail()))){
+        if (!user.equals(getUserByEmail(user.getEmail()))) {
             users[size++] = user;
-        }
-        else System.out.println("User already exists!");
+        } else System.out.println("User already exists!");
     }
 
     private void extend() {
@@ -20,13 +19,12 @@ public class UserStorage {
         users = tmp;
     }
 
-    public User getUserByEmail(String email){
+    public User getUserByEmail(String email)throws UserNotFoundException {
         for (int i = 0; i < users.length; i++) {
-            if(users[i] != null && users[i].getEmail().equals(email)){
+            if (users[i] != null && users[i].getEmail().equals(email)) {
                 return users[i];
             }
         }
         return null;
     }
-
 }
