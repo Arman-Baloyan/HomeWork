@@ -184,7 +184,7 @@ public class StudentLessonTest {
         }
         if (userStorage.getUserByEmail(email) == null && name.length() > 0 && surname.length() > 0 && email.length() > 0
                 && password.length() > 0 && type.equals("admin") || type.equals("user")){
-            User user = new User(name, surname, email, password, type);
+            User user = new User(name, surname, email, password, UserType.valueOf(type));
             userStorage.add(user);
             System.out.println("User registered successfully!");
         }

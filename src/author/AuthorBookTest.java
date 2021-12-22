@@ -2,6 +2,7 @@ package author;
 
 import author.model.Author;
 import author.model.Book;
+import author.model.Gender;
 import author.storage.AuthorStorage;
 import author.storage.BookStorage;
 import author.util.DateUtil;
@@ -10,7 +11,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
-public class AuthorBookTest implements AuthorBookCommands{
+public class AuthorBookTest implements AuthorBookCommands {
 
     static Scanner scanner = new Scanner(System.in);
     static AuthorStorage authorStorage = new AuthorStorage();
@@ -163,9 +164,9 @@ public class AuthorBookTest implements AuthorBookCommands{
     }
 
     private static void initData() throws ParseException {
-        Author author = new Author("poxos", "poxosyan", 22, "poxos@mail.com", "male", DateUtil.stringToDate("12/05/1995"));
-        Author author1 = new Author("poxosuhi", "poxosyan", 23, "poxosuhi@mail.com", "female", DateUtil.stringToDate("12/05/1997"));
-        Author author2 = new Author("petros", "petrosyan", 25, "petros@mail.com", "male", DateUtil.stringToDate("12/05/1999"));
+        Author author = new Author("poxos", "poxosyan", 22, "poxos@mail.com", Gender.MALE, DateUtil.stringToDate("12/05/1995"));
+        Author author1 = new Author("poxosuhi", "poxosyan", 23, "poxosuhi@mail.com", Gender.FAMALE, DateUtil.stringToDate("12/05/1997"));
+        Author author2 = new Author("petros", "petrosyan", 25, "petros@mail.com", Gender.MALE, DateUtil.stringToDate("12/05/1999"));
         authorStorage.add(author);
         authorStorage.add(author1);
         authorStorage.add(author2);
@@ -264,13 +265,19 @@ public class AuthorBookTest implements AuthorBookCommands{
             System.out.println("please input author's surname");
             String surname = scanner.nextLine();
             System.out.println("please input author's gender");
-            String gender = scanner.nextLine();
-            System.out.println("please input author's age");
-            int age = Integer.parseInt(scanner.nextLine());
-            author.setName(name);
-            author.setSurname(surname);
-            author.setGender(gender);
-            author.setAge(age);
+            try {
+                Gender gender = Gender.valueOf(scanner.nextLine());
+                System.out.println("please input author's age");
+                int age = Integer.parseInt(scanner.nextLine());
+                author.setName(name);
+                author.setSurname(surname);
+                author.setGender(gender);
+                author.setAge(age);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+
+
         } else {
             System.err.println("Author does not exists");
         }
@@ -371,7 +378,7 @@ public class AuthorBookTest implements AuthorBookCommands{
         if (authorData.length == 6) {
             int age = Integer.parseInt(authorData[4]);
             Date date = DateUtil.stringToDate(authorData[5]);
-            Author author = new Author(authorData[0], authorData[1], age, authorData[2], authorData[3], date);
+            Author author = new Author(authorData[0], authorData[1], age, authorData[2], Gender.valueOf(authorData[3]), date);
 
             if (authorStorage.getByEmail(author.getEmail()) != null) {
                 System.err.println("Invalid email. Author with this email already exists");
