@@ -1,56 +1,38 @@
 package education;
-
+import  java.util.LinkedList;
 public class LessonStorage {
-
-    private Lesson[] lessons = new Lesson[16];
-    private int size = 0;
-
-    public void add(Lesson lesson) {
-        if (lessons.length == size) {
-            extend();
+    private LinkedList<Lesson>lessons=new LinkedList<>();
+    public void add(Lesson lesson){
+        if(lesson!=null){
+            lessons.add(lesson);
         }
-        lessons[size++] = lesson;
-
     }
+    public void printLessons(){
+        for(Lesson lesson:lessons){
+            if(lessons!=null){
+                System.out.println(lesson);
+            }
 
-    private void extend() {
-        Lesson[] tmp = new Lesson[lessons.length + 10];
-        System.arraycopy(lessons, 0, tmp, 0, lessons.length);
-        lessons = tmp;
+        }
     }
-
-
-    public void printLessons() {
-        for (int i = 0; i < size; i++) {
-            if (lessons[i] != null) {
-                System.out.println(lessons[i]);
+    public  void deleteLessonsByName(String lessonsName){
+        for(Lesson lesson:lessons){
+            if(lesson.getName().equals(lessonsName)){
+                lessons.remove(lesson);
             }
         }
     }
-
-    public void deleteLessonsByName(String lessonName) {
-        Lesson tempLesson = new Lesson();
-        int tempLength = lessons.length;
-        for (int i = 0; i < tempLength; i++) {
-            if (lessons[i].getName().equals(lessonName)) {
-                tempLesson = lessons[i + 1];
-                lessons[i + 1] = lessons[i];
-                lessons[i] = tempLesson;
-                tempLength--;
-            }
-        }
-    }
-
     public Lesson getLessonByName(String lessonName){
-        for (int i = 0; i < size; i++) {
-            if(lessons[i].getName().equals(lessonName)){
-                return lessons[i];
+        for (Lesson lesson : lessons) {
+            if (lesson.getName().equals(lessonName)){
+                return lesson;
             }
         }
         return null;
     }
 
-
-
-
 }
+
+
+
+

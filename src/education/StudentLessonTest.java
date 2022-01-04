@@ -6,7 +6,7 @@ public class StudentLessonTest {
     static Scanner scanner = new Scanner(System.in);
     static LessonStorage lessonstorage = new LessonStorage();
     static StudentStorage studentStorage = new StudentStorage();
-    static UserStorage userStorage = new UserStorage();
+    static UserStorageMap userStorageMap1 = new UserStorageMap();
     static UserContext context = new UserContext();
 
 
@@ -92,8 +92,8 @@ public class StudentLessonTest {
         System.out.println("Password:");
         String password = scanner.nextLine();
         try{
-            User userByEmail = userStorage.getUserByEmail(login);
-            if(userStorage.getUserByEmail(login)==null){
+            User userByEmail = userStorageMap1.getUserByEmail(login);
+            if(userStorageMap1.getUserByEmail(login)==null){
                 throw  new UserNotFoundException();
             }
             if (userByEmail.getPassword().equals(password) && userByEmail.getType().equals("admin")) {
@@ -178,17 +178,17 @@ public class StudentLessonTest {
         String password = scanner.nextLine();
         System.out.println("please input user type");
         String type = scanner.nextLine();
-        if (userStorage.getUserByEmail(email) != null){
+        if (userStorageMap1.getUserByEmail(email) != null){
             System.out.println("User already exists!");
             addUser();
         }
-        if (userStorage.getUserByEmail(email) == null && name.length() > 0 && surname.length() > 0 && email.length() > 0
+        if (userStorageMap1.getUserByEmail(email) == null && name.length() > 0 && surname.length() > 0 && email.length() > 0
                 && password.length() > 0 && type.equals("admin") || type.equals("user")){
             User user = new User(name, surname, email, password, UserType.valueOf(type));
-            userStorage.add(user);
+            userStorageMap1.add(user);
             System.out.println("User registered successfully!");
         }
-        if (userStorage.getUserByEmail(email) == null && !type.equals("admin") && !type.equals("user")){
+        if (userStorageMap1.getUserByEmail(email) == null && !type.equals("admin") && !type.equals("user")){
             System.out.println("wrong user type!");
             addUser();
         }
